@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Smart Auto Bookmark Settings</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 32px;
+        background: #f8f9fa;
+      }
+      .container {
+        background: white;
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #1a73e8;
+        margin-bottom: 32px;
+        font-size: 28px;
+        font-weight: 600;
+      }
+      h2 {
+        color: #3c4043;
+        font-size: 20px;
+        margin: 32px 0 16px 0;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e1e5e9;
+      }
+      .form-group {
+        margin-bottom: 24px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #3c4043;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #dadce0;
+        border-radius: 6px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      input[type="number"] {
+        width: 120px;
+      }
+      .redlist-item {
+        background: #f8f9fa;
+        border: 1px solid #e1e5e9;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 2fr auto;
+        gap: 12px;
+        align-items: center;
+      }
+      .button {
+        padding: 10px 20px;
+        background: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .button:hover {
+        background: #1557b0;
+      }
+      .button.secondary {
+        background: #5f6368;
+      }
+      .button.secondary:hover {
+        background: #3c4043;
+      }
+      .button.danger {
+        background: #d93025;
+      }
+      .button.danger:hover {
+        background: #b52d20;
+      }
+      .success-message {
+        background: #e6f4ea;
+        color: #137333;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+        display: none;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .export-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Smart Auto Bookmark Settings</h1>
+
+      <div class="success-message" id="successMessage">
+        Settings saved successfully!
+      </div>
+
+      <h2>Basic Settings</h2>
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="threshold">Visits threshold for auto-bookmark:</label>
+          <input type="number" id="threshold" min="2" max="20" value="3" />
+          <small>Default: 3 visits per month</small>
+        </div>
+
+        <div class="form-group">
+          <label for="excludeDailyThreshold"
+            >Exclude if daily visits exceed:</label
+          >
+          <input
+            type="number"
+            id="excludeDailyThreshold"
+            min="2"
+            max="10"
+            value="3"
+          />
+          <small
+            >Prevents bookmarking sites visited too frequently in one day</small
+          >
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="organizationType">Folder organization:</label>
+          <select id="organizationType">
+            <option value="frequency">
+              By Frequency (🔥Daily, ⭐Regular, etc.)
+            </option>
+            <option value="monthly">By Month (2024-01, 2024-02, etc.)</option>
+            <option value="single">Single Folder</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="keepDataMonths">Keep data for months:</label>
+          <input type="number" id="keepDataMonths" min="1" max="36" value="6" />
+          <small>Older data will be automatically cleaned up</small>
+        </div>
+      </div>
+
+      <h2>Red List (Excluded Sites)</h2>
+      <p>Sites matching these patterns will never be auto-bookmarked:</p>
+
+      <div id="redlistContainer"></div>
+
+      <button class="button" id="addRedlistItem">Add New Exclusion</button>
+
+      <div class="export-section">
+        <h2>Data Management</h2>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap">
+          <button class="button secondary" id="exportSettings">
+            Export Settings
+          </button>
+          <button class="button secondary" id="importSettings">
+            Import Settings
+          </button>
+          <button class="button danger" id="resetData">Reset All Data</button>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 32px">
+        <button
+          class="button"
+          id="saveSettings"
+          style="font-size: 16px; padding: 12px 32px"
+        >
+          Save All Settings
+        </button>
+      </div>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>
