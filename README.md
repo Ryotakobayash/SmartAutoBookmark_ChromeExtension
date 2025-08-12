@@ -1,5 +1,3 @@
-// ===== README.md =====
-
 # Smart Auto Bookmark Chrome Extension
 
 月 3 回以上訪問したサイトを自動的にブックマークし、頻度別フォルダで整理する Chrome 拡張機能です。
